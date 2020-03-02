@@ -1,0 +1,21 @@
+{
+  "name": "knex-tutorial",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "faker": "^4.1.0",
+    "http-errors": "~1.6.3",
+    "knex": "^0.20.10",
+    "morgan": "~1.9.1",
+    "pg": "^7.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

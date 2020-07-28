@@ -1,6 +1,7 @@
-var express = require('express');
-var faker = require("faker");
-var router = express.Router();
+const express = require('express');
+const faker = require("faker");
+const router = express.Router();
+const UsersService = require("../module/usersService.js");
 
 router.get("/seed", function(req, res, next) {
   const db = req.app.get('db');
@@ -30,9 +31,31 @@ router.get("/seed", function(req, res, next) {
   });
 });
 
-router.route('/').get(function(req, res, next) {
-  res.send({ true: true })
-})
+router.route('/')
+  .get(function(req, res, next) {
+    const db = req.app.get("db");
+    UsersService.getAllUsers(db).then(data => {
+      res.send(data);
+    });
+  })
+  .post(function(req, res) {
+    const db = req.app.get("db");
+    UsersService.insertUser(db, req.body).then(data => {
+      res.send(data);
+    });
+  });
+  .patch(function(req, res) {
+    const db = req.app.get("db");
+    UsersService.updateUser(db, req.params.id, req.body).then(() => {
+      res.status(204).end();
+    });
+  })
+  .delete(function(req, res) {
+    const db = req.app.get("db");
+    UsersService.deleteUser(db, req.params.id).then(data => {
+      res.status(204).end();
+    });
+  });
 
 
 module.exports = router;

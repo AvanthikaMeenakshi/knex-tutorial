@@ -44,15 +44,24 @@ router.route('/')
       res.send(data);
     });
   });
-  .patch(function(req, res) {
+
+router
+  .route("/:id")
+  .get(function (req, res, next) {
+    const db = req.app.get("db");
+    UsersService.getById(db, req.params.id).then((data) => {
+      res.send(data);
+    });
+  })
+  .patch(function (req, res) {
     const db = req.app.get("db");
     UsersService.updateUser(db, req.params.id, req.body).then(() => {
       res.status(204).end();
     });
   })
-  .delete(function(req, res) {
+  .delete(function (req, res) {
     const db = req.app.get("db");
-    UsersService.deleteUser(db, req.params.id).then(data => {
+    UsersService.deleteUser(db, req.params.id).then((data) => {
       res.status(204).end();
     });
   });

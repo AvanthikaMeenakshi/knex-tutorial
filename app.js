@@ -1,15 +1,15 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var knex = require('knex');
+var bodyParser = require("body-parser");
 
 var indexRouter = require('./routes/index');
 
 var app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const db = require("knex")({
